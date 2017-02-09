@@ -10,6 +10,7 @@ injectTapEventPlugin();
 class BetLauncher extends React.Component {
   state = {
     stepIndex: 0,
+    next: "Next"
   };
 
   handleNext = () => {
@@ -17,12 +18,15 @@ class BetLauncher extends React.Component {
     if (stepIndex < 2) {
       this.setState({stepIndex: stepIndex + 1});
     }
+    if (stepIndex === 1) {
+      this.setState({next: "Finished"});
+    }
   };
 
   handlePrev = () => {
     const {stepIndex} = this.state;
     if (stepIndex > 0) {
-      this.setState({stepIndex: stepIndex - 1});
+      this.setState({stepIndex: 0, next: "Next"});
     }
   };
 
@@ -45,8 +49,8 @@ class BetLauncher extends React.Component {
   }
 
   render() {
-    const {stepIndex} = this.state;
-    const contentStyle = {margin: '0 12px'};
+    const {stepIndex, next} = this.state;
+    const contentStyle = {margin: '0px 200px'};
 
     return (
       <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
@@ -77,7 +81,7 @@ class BetLauncher extends React.Component {
               style={{marginRight: 12}}
             />
             <RaisedButton
-              label="Next"
+              label={next}
               disabled={stepIndex === 2}
               primary={true}
               onTouchTap={this.handleNext}
