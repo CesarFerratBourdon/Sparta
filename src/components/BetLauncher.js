@@ -4,6 +4,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import { calculatePools } from '../helpers/utilities'
 
 injectTapEventPlugin();
 
@@ -20,6 +21,9 @@ class BetLauncher extends React.Component {
     }
     if (stepIndex === 1) {
       this.setState({next: "Finished"});
+      let result = this.refs.myField.getValue();
+      let allTotal = calculatePools(result);
+      this.props.updateTotalPools(allTotal);
     }
   };
 
@@ -28,6 +32,7 @@ class BetLauncher extends React.Component {
     if (stepIndex > 0) {
       this.setState({stepIndex: 0, next: "Next"});
     }
+    this.props.raceReset();
   };
 
   getStepContent(stepIndex) {
@@ -36,6 +41,7 @@ class BetLauncher extends React.Component {
         return <p>Would you like to start a new race?</p>;
       case 1:
         return  <TextField
+            ref="myField"
             hintText="Set the results using correct format"
             floatingLabelText="R:r1:r2:r3"
             floatingLabelFixed={true}
