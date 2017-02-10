@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Step, Stepper, StepButton } from 'material-ui/Stepper';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -8,7 +8,7 @@ import { calculatePools } from '../helpers/utilities'
 
 injectTapEventPlugin();
 
-class BetLauncher extends React.Component {
+class BetLauncher extends Component {
   state = {
     stepIndex: 0,
     next: "Next"

@@ -1,17 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-class Pool extends React.Component {
-  constructor (props) {
-    super(props);
-    this.state = {
-      title: props.title,
-    }
-  }
+class Pool extends Component {
 
   render () {
     return (
       <div>
-          <i>{this.state.title}</i>
+          <i>{this.props.title}</i>
           <p><b>$ {this.props.amount}</b></p>
       </div>
     )

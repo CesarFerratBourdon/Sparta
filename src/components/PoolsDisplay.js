@@ -1,19 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Pool from './Pool'
 import Paper from 'material-ui/Paper';
 
-const poolOptions = [ 'Win', 'Place', 'Exact', 'Quinella'];
 
-class PoolsDisplay extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      pool1: poolOptions[0],
-      pool2: poolOptions[1],
-      pool3: poolOptions[2],
-      pool4: poolOptions[3],
-    }
-  }
+class PoolsDisplay extends Component {
 
   render () {
     const style = {
@@ -23,17 +13,15 @@ class PoolsDisplay extends React.Component {
       textAlign: 'center',
       display: 'inline-block',
     };
-    var amountWin = this.props.amounts[0]
-    var amountPlace = this.props.amounts[1]
-    var amountExact = this.props.amounts[2]
-    var amountQuinella = this.props.amounts[3]
+
+    const { poolOptions, poolAmounts } = this.props;
 
     return (
           <div style={{width: '100%', maxWidth: 940, margin: 'auto'}}>
-            <Paper style={style} zDepth={2} circle={true}><Pool title={this.state.pool1} amount={amountWin}/></Paper>
-            <Paper style={style} zDepth={2} circle={true}><Pool title={this.state.pool2} amount={amountPlace}/></Paper>
-            <Paper style={style} zDepth={2} circle={true}><Pool title={this.state.pool3} amount={amountExact}/></Paper>
-            <Paper style={style} zDepth={2} circle={true}><Pool title={this.state.pool4} amount={amountQuinella}/></Paper>
+            <Paper style={style} zDepth={2} circle={true}><Pool title={poolOptions[0]} amount={poolAmounts[0]}/></Paper>
+            <Paper style={style} zDepth={2} circle={true}><Pool title={poolOptions[1]} amount={poolAmounts[1]}/></Paper>
+            <Paper style={style} zDepth={2} circle={true}><Pool title={poolOptions[2]} amount={poolAmounts[2]}/></Paper>
+            <Paper style={style} zDepth={2} circle={true}><Pool title={poolOptions[3]} amount={poolAmounts[3]}/></Paper>
           </div>
     )
   }
