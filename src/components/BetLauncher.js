@@ -4,7 +4,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import { calculatePools } from '../helpers/utilities'
+import { parseInput, calculateDividends } from '../helpers/utilities'
 
 injectTapEventPlugin();
 
@@ -15,15 +15,19 @@ class BetLauncher extends Component {
   };
 
   handleNext = () => {
-    const {stepIndex} = this.state;
+    const { stepIndex } = this.state;
+    const { commissionRates } = this.props;
     if (stepIndex < 2) {
       this.setState({stepIndex: stepIndex + 1});
     }
     if (stepIndex === 1) {
       this.setState({next: "Finished"});
-      let result = this.refs.myField.getValue();
-      let allTotal = calculatePools(result);
-      this.props.updateTotalPools(allTotal);
+      let input = this.refs.myField.getValue();
+      let podium = parseInput(input);
+      let allResults = calculateDividends(podium, commissionRates);
+      let dividends = allResults[0];
+      let poolAmounts = allResults[1];
+      this.props.handleNewRaceResults(dividends, podium, poolAmounts);
     }
   };
 
@@ -32,7 +36,7 @@ class BetLauncher extends Component {
     if (stepIndex > 0) {
       this.setState({stepIndex: 0, next: "Next"});
     }
-    this.props.raceReset();
+    this.props.handleRaceReset();
   };
 
   getStepContent(stepIndex) {

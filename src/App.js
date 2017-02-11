@@ -16,16 +16,22 @@ class App extends Component {
       dividends: []
     }
   }
-  handleNewRaceResults = (allTotal) => {
+  handleNewRaceResults = (dividends, podium, poolAmounts) => {
     console.log("hello")
    this.setState({
-     poolAmounts: allTotal
+     podium: podium,
+     dividends: dividends,
+     poolAmounts: poolAmounts,
+     showDividends: 'block',
    });
   }
   handleRaceReset = () => {
     console.log("reset")
    this.setState({
-     poolAmounts: []
+     poolAmounts: [],
+     podium: [],
+     showDividends: 'none',
+     dividends: []
    });
   }
   handleNewCommissionRates = (rate, index) => {
@@ -39,11 +45,11 @@ class App extends Component {
   render() {
     const { poolAmounts, commissionRates , poolOptions, podium, showDividends, dividends} = this.state;
     return (
-          <div style={{backgroundColor: 'aliceblue', padding: 100}}>
+          <div style={{padding: 100}}>
             <PoolsDisplay poolAmounts={poolAmounts} commissionRates={commissionRates} poolOptions={poolOptions}/>
             <CommissionRates commissionRates={commissionRates} poolOptions={poolOptions} newCommissionRates={this.handleNewCommissionRates} />
-            <BetLauncher updateTotalPools={this.handleNewRaceResults}
-                  raceReset={this.handleRaceReset} />
+            <BetLauncher  commissionRates={commissionRates} handleNewRaceResults={this.handleNewRaceResults}
+                  handleRaceReset={this.handleRaceReset} />
             <DividendsDisplay podium={podium} showDividends={showDividends} dividends={dividends}/>
           </div>
     );
