@@ -31,16 +31,18 @@ class App extends Component {
      poolAmounts: [],
      podium: [],
      showDividends: 'none',
-     dividends: []
+     dividends: [],
+     commissionRates: [15,12,18,18]
    });
   }
-  handleNewCommissionRates = (rate, index) => {
+  handleNewCommissionRates = (commissionRates, dividends, podium, poolAmounts) => {
     console.log("commission rates updated");
-    var rates = this.state.commissionRates;
-    rates[index] = rate;
-   this.setState({
-     commissionRates: rates
-   });
+    this.setState({
+       commissionRates: commissionRates,
+       poolAmounts: poolAmounts,
+       podium: podium,
+       dividends: dividends
+    });
   }
   render() {
     const { poolAmounts, commissionRates , poolOptions, podium, showDividends, dividends} = this.state;

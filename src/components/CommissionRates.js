@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import { calculateDividends } from '../helpers/utilities'
 
 const items = [];
 for (let i = 0; i < 100; i++ ) {
@@ -8,26 +9,65 @@ for (let i = 0; i < 100; i++ ) {
 }
 
 class CommissionRates extends Component {
-//Need to find a way to refactor this.
+// Need to find a way to refactor these 4 functions into 1. Need to differentiate each child element items inside each SelectField
   handleChange = (event, value) => {
+    var { commissionRates } = this.props;
     var index = 0;
-    this.props.newCommissionRates(value, index);
+    if (localStorage.getItem("podium") !== null) {
+      var podium = JSON.parse(localStorage.getItem("podium"));
+    };
+    commissionRates[index] = value;
+    // this.setState({commissionRates: commissionRates});
+    let allResults = calculateDividends(podium, commissionRates);
+    let dividends = allResults[0];
+    let poolAmounts = allResults[1];
+    this.props.newCommissionRates(commissionRates, dividends, podium, poolAmounts);
   };
+
   handleChange1 = (event, value) => {
+    var { commissionRates } = this.props;
     var index = 1;
-    this.props.newCommissionRates(value, index);
+    if (localStorage.getItem("podium") !== null) {
+      var podium = JSON.parse(localStorage.getItem("podium"));
+    };
+    commissionRates[index] = value;
+    this.setState({commissionRates: commissionRates});
+    let allResults = calculateDividends(podium, commissionRates);
+    let dividends = allResults[0];
+    let poolAmounts = allResults[1];
+    this.props.newCommissionRates(commissionRates, dividends, podium, poolAmounts);
   };
+
   handleChange2 = (event, value) => {
+    var { commissionRates } = this.props;
     var index = 2;
-    this.props.newCommissionRates(value, index);
+    if (localStorage.getItem("podium") !== null) {
+      var podium = JSON.parse(localStorage.getItem("podium"));
+    };
+    commissionRates[index] = value;
+    this.setState({commissionRates: commissionRates});
+    let allResults = calculateDividends(podium, commissionRates);
+    let dividends = allResults[0];
+    let poolAmounts = allResults[1];
+    this.props.newCommissionRates(commissionRates, dividends, podium, poolAmounts);
   };
+
   handleChange3 = (event, value) => {
+    var { commissionRates } = this.props;
     var index = 3;
-    this.props.newCommissionRates(value, index);
+    if (localStorage.getItem("podium") !== null) {
+      var podium = JSON.parse(localStorage.getItem("podium"));
+    };
+    commissionRates[index] = value;
+    this.setState({commissionRates: commissionRates});
+    let allResults = calculateDividends(podium, commissionRates);
+    let dividends = allResults[0];
+    let poolAmounts = allResults[1];
+    this.props.newCommissionRates(commissionRates, dividends, podium, poolAmounts);
   };
 
   render () {
-    const { commissionRates, poolOptions } = this.props;
+    const { poolOptions, commissionRates } = this.props;
     return (
           <div style={{width: '100%', maxWidth: 250, margin: 'auto', float: 'right'}}>Adjust commission rates
             <SelectField floatingLabelText={poolOptions[0]} value={commissionRates[0]} onChange={this.handleChange} maxHeight={200}>{items}</SelectField>
@@ -39,6 +79,5 @@ class CommissionRates extends Component {
   }
 };
 
-CommissionRates.defaultProps = {poolOptions: [ 'Win', 'Place', 'Exact', 'Quinella']};
 
 export default CommissionRates;

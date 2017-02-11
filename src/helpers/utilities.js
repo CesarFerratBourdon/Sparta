@@ -5,10 +5,9 @@ export const parseInput = (input) => {
   return [result[1], result[2], result[3]];
 }
 
-var winTotal, placeTotal, exactTotal, quintellaTotal; winTotal = placeTotal = exactTotal = quintellaTotal = 0;
-var win, place1, place2, place3, exact, quintella; win = place1 = place2 = place3 = exact = quintella  = 0;
-
 export const calculateDividends = (podium, commissionRates) => {
+  var winTotal, placeTotal, exactTotal, quintellaTotal; winTotal = placeTotal = exactTotal = quintellaTotal = 0;
+  var win, place1, place2, place3, exact, quintella; win = place1 = place2 = place3 = exact = quintella  = 0;
   var first = podium[0];
   var second = podium[1];
   var third = podium[2];

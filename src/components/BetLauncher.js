@@ -24,6 +24,7 @@ class BetLauncher extends Component {
       this.setState({next: "Finished"});
       let input = this.refs.myField.getValue();
       let podium = parseInput(input);
+      localStorage.setItem("podium", JSON.stringify(podium));
       let allResults = calculateDividends(podium, commissionRates);
       let dividends = allResults[0];
       let poolAmounts = allResults[1];
@@ -36,6 +37,7 @@ class BetLauncher extends Component {
     if (stepIndex > 0) {
       this.setState({stepIndex: 0, next: "Next"});
     }
+    localStorage.removeItem("podium");
     this.props.handleRaceReset();
   };
 
