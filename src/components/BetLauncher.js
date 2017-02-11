@@ -23,6 +23,11 @@ class BetLauncher extends Component {
     if (stepIndex === 1) {
       this.setState({next: "Finished"});
       let input = this.refs.myField.getValue();
+      if (this.handleInputFormat(input) === "Wrong format") {
+        this.setState({stepIndex: 0, next: "Next"});
+        this.props.handleRaceReset();
+        return;
+      }
       let podium = parseInput(input);
       localStorage.setItem("podium", JSON.stringify(podium));
       let allResults = calculateDividends(podium, commissionRates);
@@ -39,6 +44,14 @@ class BetLauncher extends Component {
     }
     localStorage.removeItem("podium");
     this.props.handleRaceReset();
+  };
+
+  handleInputFormat = (input) => {
+    console.log(input);
+    if (input.match(/^R:\d:\d:\d$/) === null) {
+        alert('Wrong format of input');
+        return "Wrong format"
+    }
   };
 
   getStepContent(stepIndex) {
