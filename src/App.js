@@ -35,21 +35,19 @@ class App extends Component {
      commissionRates: [15,12,18,18]
    });
   }
-  handleNewCommissionRates = (commissionRates, dividends, podium, poolAmounts) => {
+  handleNewCommissionRates = (commissionRates, dividends) => {
     console.log("commission rates updated");
     this.setState({
        commissionRates: commissionRates,
-       poolAmounts: poolAmounts,
-       podium: podium,
        dividends: dividends
     });
   }
   render() {
-    const { poolAmounts, commissionRates , poolOptions, podium, showDividends, dividends} = this.state;
+    var { poolAmounts, commissionRates , poolOptions, podium, showDividends, dividends} = this.state;
     return (
           <div style={{padding: 100}}>
             <PoolsDisplay poolAmounts={poolAmounts} commissionRates={commissionRates} poolOptions={poolOptions}/>
-            <CommissionRates commissionRates={commissionRates} poolOptions={poolOptions} newCommissionRates={this.handleNewCommissionRates} />
+            <CommissionRates commissionRates={commissionRates} poolOptions={poolOptions} dividends={dividends} podium={podium} newCommissionRates={this.handleNewCommissionRates} />
             <BetLauncher  commissionRates={commissionRates} handleNewRaceResults={this.handleNewRaceResults}
                   handleRaceReset={this.handleRaceReset} />
             <DividendsDisplay podium={podium} showDividends={showDividends} dividends={dividends}/>

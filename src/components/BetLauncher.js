@@ -4,6 +4,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import Dialog from 'material-ui/Dialog';
 import { parseInput, calculateDividends } from '../helpers/utilities'
 
 injectTapEventPlugin();
@@ -11,30 +12,35 @@ injectTapEventPlugin();
 class BetLauncher extends Component {
   state = {
     stepIndex: 0,
-    next: "Next"
+    next: "Next",
+    open: false
   };
 
   handleNext = () => {
     const { stepIndex } = this.state;
     const { commissionRates } = this.props;
-    if (stepIndex < 2) {
-      this.setState({stepIndex: stepIndex + 1});
-    }
     if (stepIndex === 1) {
-      this.setState({next: "Finished"});
       let input = this.refs.myField.getValue();
       if (this.handleInputFormat(input) === "Wrong format") {
-        this.setState({stepIndex: 0, next: "Next"});
+        this.setState({open: true});
+        this.setState({stepIndex: 0});
         this.props.handleRaceReset();
         return;
-      }
+      };
+      this.setState({stepIndex: stepIndex + 1, next: "Finished" });
       let podium = parseInput(input);
-      localStorage.setItem("podium", JSON.stringify(podium));
       let allResults = calculateDividends(podium, commissionRates);
       let dividends = allResults[0];
       let poolAmounts = allResults[1];
       this.props.handleNewRaceResults(dividends, podium, poolAmounts);
     }
+    if (stepIndex === 0) {
+      this.setState({stepIndex: 1});
+    }
+  };
+
+  handleModalClose = () => {
+   this.setState({open: false});
   };
 
   handlePrev = () => {
@@ -42,15 +48,13 @@ class BetLauncher extends Component {
     if (stepIndex > 0) {
       this.setState({stepIndex: 0, next: "Next"});
     }
-    localStorage.removeItem("podium");
     this.props.handleRaceReset();
   };
 
   handleInputFormat = (input) => {
     console.log(input);
     if (input.match(/^R:\d:\d:\d$/) === null) {
-        alert('Wrong format of input');
-        return "Wrong format"
+      return "Wrong format";
     }
   };
 
@@ -76,9 +80,11 @@ class BetLauncher extends Component {
   render() {
     const {stepIndex, next} = this.state;
     const contentStyle = {margin: '0px 200px'};
+    const action = [<FlatButton label="Restart" primary={true} onTouchTap={this.handleModalClose}/>]
 
     return (
       <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
+      <Dialog title="Warning" actions={action} modal={true} open={this.state.open}>Wrong format of input</Dialog>
         <Stepper linear={false} activeStep={stepIndex}>
           <Step>
             <StepButton onClick={() => this.setState({stepIndex: 0})}>
