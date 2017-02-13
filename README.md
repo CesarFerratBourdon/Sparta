@@ -1,4 +1,5 @@
-# react-demo
+# App-Sparta
+
 A React.js app to calculate betting dividends
 made as a code assignment for Sparta, Stockholm.
 Please see PDF for requirements
@@ -6,12 +7,12 @@ Please visit: http://app-sparta.herokuapp.com/
 
 ## Tech stack
 
-Bootstrapped with Create-React-App
-React.js
-ES6
-Yarn
-Material-ui
-Jasmine
+* Bootstrapped with Create-React-App
+* React.js
+* ES6
+* Yarn
+* Material-ui
+* Jasmine
 
 ## Installation
 
