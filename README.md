@@ -22,7 +22,7 @@ At project root folder run
 
 Be sure to have yarn installed globally
 
-### `yarn run webpack`
+### `yarn run`
 
 to generate Javascript bundle
 
@@ -39,3 +39,13 @@ You will also see any lint errors in the console.
 ### `yarn test`
 
 Launches the test runner in the interactive watch mode.<br>
+
+## Imporvements to make
+
+* Use Proptypes to validate data type input
+* Use .map to generate many similar components (menus etc...)
+* Stop doing in-line CSS and have a special folder
+* Refactor the big function in utilies.js. Cut it into 2 or 3 smaller function for less responsability and more flexibility
+* create a JSON parser to receive the betting datas from 3rd party APIs. (right now datas are hardcodede in data.json)
+* Do some more testing with Jasmine
+* Learn and use Selenium for UI testing

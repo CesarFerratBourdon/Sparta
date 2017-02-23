@@ -47,7 +47,8 @@ class App extends Component {
     return (
           <div style={{padding: 100}}>
             <PoolsDisplay poolAmounts={poolAmounts} commissionRates={commissionRates} poolOptions={poolOptions}/>
-            <CommissionRates commissionRates={commissionRates} poolOptions={poolOptions} dividends={dividends} podium={podium} newCommissionRates={this.handleNewCommissionRates} />
+            <CommissionRates commissionRates={commissionRates}
+            poolOptions={poolOptions} dividends={dividends} podium={podium} newCommissionRates={this.handleNewCommissionRates} />
             <BetLauncher  commissionRates={commissionRates} handleNewRaceResults={this.handleNewRaceResults}
                   handleRaceReset={this.handleRaceReset} />
             <DividendsDisplay podium={podium} showDividends={showDividends} dividends={dividends}/>
